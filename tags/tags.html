@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="tags.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>Label</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="label_in">
+            <p>产品类别<b>*</b>:</p>
+            <div class="area">
+                <div class="add">
+                    <input type="text" name="input" placeholder="输入标签..." />
+                </div>
+                <br class="clear" />
+            </div>
+        </div>
+        <div class="label_type">
+            <span style="background:#d58fce">仪器类</span>
+            <span style="background:#a9cf94">国际品牌</span>
+            <span style="background:#80becb">纹绣类</span>
+            <span style="background:#f4af8e">整形及整形耗材</span>
+            <span style="background:#fb7cff">美体内衣</span>
+            <span style="background:#b2d195">其他项目类（抗衰、生殖保养等）</span>
+            <span style="background:#cf8cc2">项目类（养生、艾灸、精油）</span>
+            <span style="background:#d2dbe0">美胸、减肥类</span>
+            <span style="background:#d089cd">功效性护肤品（祛斑祛痘除皱等）</span>
+            <span style="background:#a9d091">护肤品类</span>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        //点击事件，点击标签选择，标签出现在输入框，原来位置隐藏
+        $(".label_type").click(function (e) {
+            var num = $(e.target).index();
+            var a = $(e.target).attr('class');
+            //判断点的不是空白地方（标签的父标签）
+            if (a != "label_type") {
+                $(e.target).clone().insertBefore($(".add input")).addClass("ad").attr('id', num).append("<b class='close'>ⓧ</b>");
+                $(e.target).hide();
+            }
+        });
+        //点击事件，点击X号时候删除标签，并在原来位置显示
+        $(".add").click(function (e) {
+            if ($(e.target).html() == "ⓧ") {
+                var numid = $(e.target).closest("span").attr('id');
+                $(e.target).closest("span").remove();
+                $(".label_type span").eq(numid).show();
+            }
+        });
+        //按键事件
+        $(document).keydown(function (e) {
+            //获取输入框里的内容
+            var content = $("input").val();
+            //按下退格键时触发时间
+            if (e.keyCode == 8) {
+                //判断输入框里是否为空，为空时退格键触发删除标签
+                if (content == "") {
+                    //获取里输入框最近一个标签的id，然后删除，并通过id定位到便签原来的位置并显示出来
+                    var numid = $(".add input").prev().attr('id');
+                    $(".add input").prev().remove();
+                    $(".label_type span").eq(numid).show();
+                }
+            } else if (e.keyCode == 13 || e.keyCode == 32) { //回车键和空格键事件
+                //调用函数
+                autocomplete();
+            }
+        });
+        //输入框失去焦点时进行匹配生成标签
+        $("input").blur(autocomplete);
+
+        //遍历匹配生成对应便签
+        function autocomplete() {
+            var content = $("input").val();
+            //获取标签的总个数，用于遍历
+            var len = $(".label_type").children().length;
+            //遍历标签，判断输入的是否存在于标签了
+            for (var i = 0; i < len; i++) {
+                var con = $(".label_type span").eq(i).text();
+                //这里判断输入框里是否为空，并且进行匹配，输入只需要匹配到部分，方便输入
+                if (content != "" && con.match(content)) {
+                    $(".label_type span").eq(i).clone().insertBefore($(".add input")).addClass("ad").attr('id', i).append("<b class='close'>ⓧ</b>");
+                    $(".label_type span").eq(i).hide();
+                    $("input").val("");
+                }
+            }
+        }
+    });
+</script>
+
+</html>

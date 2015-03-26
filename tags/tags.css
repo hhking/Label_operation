@@ -1,0 +1,72 @@
+html,
+body,
+input,
+p {
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 960px;
+    margin: 0 auto;
+}
+b {
+    color: red;
+    margin: 3px;
+}
+p {
+    width: 95px;
+    margin: 10px 0;
+}
+.area{
+    width: 960px;
+    border: 1px solid #a09d9d;
+}
+.add {
+    float: left;
+    line-height: 28px;
+    overflow: hidden;
+    border: none;
+}
+input {
+    float: left;
+    height: 28px;
+    margin: 5px 0;
+    padding-left: 12px;
+    line-height: 28px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+}
+.clear{
+    clear: both;
+}
+
+b {
+    clear: both;
+}
+span {
+    float: left;
+    margin: 5px 5px 5px 0;
+    padding: 5px 15px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 18px;
+    color: white;
+    border: 0px;
+    border-radius: 5px;
+}
+.close {
+    color: white;
+    font-size: 18px;
+    position: relative;
+    left: 5px;
+}
+.ad {
+    height: 20px;
+    line-height: 20px;
+    font-size: 15px;
+    margin: 5px 5px;
+}
+span:hover {
+    cursor: pointer;
+}
